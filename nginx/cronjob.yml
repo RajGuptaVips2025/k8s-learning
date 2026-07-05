@@ -27,11 +27,11 @@ spec:
               mkdir -p /demo-data && 
               cp -r /demo-data /backups &&
               echo "Backup Completed" ;
-          volumeMounts:
-            - name: data-volume
-              mountPath: /demo-data
-            - name: backup-volume
-              mountPath: /backups
+            volumeMounts:
+              - name: data-volume
+                mountPath: /demo-data
+              - name: backup-volume
+                mountPath: /backups
           restartPolicy: OnFailure
           volumes:
             - name: data-volume
