@@ -1,0 +1,23 @@
+kind: VerticalPodAutoscaler
+apiVersion: autoscaling.k8s.io/v1
+metadata:
+  name: apache-vpa
+  namespace: apache
+
+spec:
+  targetRef:
+    name: apache-deployment
+    apiVersion: apps/v1
+    kind: Deployment
+  updatePolicy:
+    updatePolicy:
+    updateMode: "Auto" # <-- Actively evicts and resizes pods live
+  resourcePolicy:
+    containerPolicies:
+      - containerName: '*'
+        minAllowed:
+          cpu: "50m"
+          memory: "64Mi"
+        maxAllowed:       # <-- Safety ceiling to protect your sandbox node
+          cpu: "200m"
+          memory: "256Mi"
